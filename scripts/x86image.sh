@@ -70,9 +70,7 @@ echo "Copying Volumio RootFs"
 sudo cp -pdR build/x86/root/* /mnt/volumio/rootfs
 
 echo "Copying the Syslinux boot sector"
-#syslinux "${BOOT_PART}"
 dd conv=notrunc bs=440 count=1 if=/mnt/volumio/rootfs/usr/lib/syslinux/mbr/gptmbr.bin of=${LOOP_DEV}
-
 sync
 
 echo "Entering Chroot Environment"
@@ -82,21 +80,20 @@ sudo mount -t vfat "${BOOT_PART}" /mnt/volumio/rootfs/boot
 cp scripts/x86config.sh /mnt/volumio/rootfs
 if [ ! -d platform-x86 ]; then
   echo "Platform files (packages) not available yet, getting them from the repo"
-  git clone --depth 1 http://github.com/volumio/platform-x86
+  git clone http://github.com/volumio/platform-x86
 fi
 
-if [ -f platform-x86/packages/.next ]; then
-  cp platform-x86/packages/experimental/linux-image-*.deb /mnt/volumio/rootfs
-  cp platform-x86/packages/experimental/linux-firmware-*.deb /mnt/volumio/rootfs
-  echo "Adding Intel 3168NGW wifi support"
-  echo "Adding Intel CherryTrail/BayTrail SST Audio firmware"
-#TODO: evaluate when switching to stretch, especially with kernel version > 4.12.9
-  cp -R platform-x86/packages/iwlwifi-3168-ucode-22.361476.0/* /mnt/volumio/rootfs/lib/firmware
-  cp -R platform-x86/packages/firmware-intel-sound/* /mnt/volumio/rootfs/lib/firmware
-else
-  cp platform-x86/packages/linux-image-*.deb /mnt/volumio/rootfs
-  cp platform-x86/packages/linux-firmware-*.deb /mnt/volumio/rootfs
-fi
+cp platform-x86/packages-stretch/linux-image-*.deb /mnt/volumio/rootfs
+cp -R platform-x86/packages-stretch/firmware/*.deb /mnt/volumio/rootfs
+cp platform-x86/packages-stretch/firmware-brcm-sdio-nvram/broadcom-nvram.tar.xz /mnt/volumio/rootfs
+cp -R platform-x86/packages-stretch/UCM/* /mnt/volumio/rootfs/usr/share/alsa/ucm/
+
+echo "deb http://deb.debian.org/debian/ stretch main contrib non-free
+deb-src http://deb.debian.org/debian/ stretch main contrib non-free" > /mnt/volumio/rootfs/etc/apt/sources.list
+
+#TODO: not checked with other Intel SST bytrt/cht audio boards yet, needs more input
+cp platform-x86/packages-stretch/bytcr-init/bytcr-init.sh /mnt/volumio/rootfs/usr/local/bin/
+chmod +x /mnt/volumio/rootfs/usr/local/bin/bytcr-init.sh
 
 cp volumio/splash/volumio.png /mnt/volumio/rootfs/boot
 
@@ -119,21 +116,22 @@ modprobe efivarfs
 
 UUID_BOOT=$(blkid -s UUID -o value ${BOOT_PART})
 UUID_IMG=$(blkid -s UUID -o value ${IMG_PART})
+UUID_DATA=$(blkid -s UUID -o value ${DATA_PART})
 echo "UUID_BOOT=${UUID_BOOT}
 UUID_IMG=${UUID_IMG}
+UUID_DATA=${UUID_DATA}
 LOOP_DEV=${LOOP_DEV}
 BOOT_PART=${BOOT_PART}
 " >> /mnt/volumio/rootfs/init.sh
 chmod +x /mnt/volumio/rootfs/init.sh
-
 
 echo $PATCH > /mnt/volumio/rootfs/patch
 chroot /mnt/volumio/rootfs /bin/bash -x <<'EOF'
 /x86config.sh -p
 EOF
 
-rm /mnt/volumio/rootfs/linux-image-*.deb
-rm /mnt/volumio/rootfs/init.sh /mnt/volumio/rootfs/linux-firmware-*.deb
+rm /mnt/volumio/rootfs/*.deb
+rm /mnt/volumio/rootfs/broadcom-nvram.tar.xz
 rm /mnt/volumio/rootfs/root/init /mnt/volumio/rootfs/x86config.sh
 rm /mnt/volumio/rootfs/ata-modules.x86
 sync
@@ -144,9 +142,6 @@ sudo umount -l /mnt/volumio/rootfs/proc
 sudo umount -l /mnt/volumio/rootfs/sys
 
 echo "X86 device installed"
-
-echo "Finalizing Rootfs creation"
-sh scripts/finalize.sh
 
 echo "Preparing rootfs base for SquashFS"
 
@@ -167,7 +162,7 @@ if [ -e /mnt/kernel_current.tar ]; then
 fi
 
 echo "Creating Kernel Partition Archive"
-tar cf /mnt/kernel_current.tar --exclude='resize-volumio-datapart' --exclude='ldlinux.sys' -C /mnt/squash/boot/ .
+tar cf /mnt/kernel_current.tar --exclude='ldlinux.sys' -C /mnt/squash/boot/ .
 
 echo "Removing the Kernel"
 rm -rf /mnt/squash/boot/*
@@ -182,6 +177,7 @@ rm -rf /mnt/squash
 
 #copy the squash image inside the boot partition
 cp Volumio.sqsh /mnt/volumio/images/volumio_current.sqsh
+
 sync
 
 echo "Unmounting Temp Devices"

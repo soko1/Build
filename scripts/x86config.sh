@@ -6,10 +6,22 @@ echo "Initializing.."
 . init.sh
 
 echo "Installing the kernel and creating initramfs"
-# Kernel version not known yet
-# Not brilliant, but safe enough as x86.sh only copied one image and one firmware package version
+# Exact kernel version not known
+# Not brilliant, but safe enough as x86.sh only copied one image
 dpkg -i linux-image-*_i386.deb
-dpkg -i linux-firmware-*_i386.deb
+rm linux-image-*_i386.deb
+
+echo "Installing Debian Stretch firmware packages"
+for f in ./*.deb ; do
+  echo "Installing firmware " $f
+  dpkg -i --force-all $f
+  done
+tar xvf broadcom-nvram.tar.xz
+
+echo "Setting sane defaults for baytrail/cherrytrail soundcards"
+echo "#!/bin/sh -e
+/usr/local/bin/bytcr-init.sh
+exit 0" > /etc/rc.local
 
 echo "Creating node/ nodejs symlinks to stay compatible with the armv6/v7 platforms"
 ln -s /usr/bin/nodejs /usr/local/bin/nodejs
@@ -29,13 +41,13 @@ echo "Getting the current kernel filename"
 KRNL=`ls -l /boot |grep vmlinuz | awk '{print $9}'`
 
 echo "Creating run-time template for syslinux config"
-DEBUG="USE_KMSG=no"
+DEBUG="use_kmsg=no"
 echo "DEFAULT volumio
 
 LABEL volumio
   SAY Legacy Boot Volumio Audiophile Music Player (default)
   LINUX ${KRNL}
-  APPEND ro imgpart=UUID=%%IMGPART%% bootpart=UUID=%%BOOTPART%% imgfile=volumio_current.sqsh quiet splash plymouth.ignore-serial-consoles vt.global_cursor_default=0 loglevel=0 ${DEBUG}
+  APPEND net.ifnames=0 biosdevname=0 imgpart=UUID=%%IMGPART%% bootpart=UUID=%%BOOTPART%% datapart=UUID=%%DATAPART%% imgfile=volumio_current.sqsh quiet splash plymouth.ignore-serial-consoles vt.global_cursor_default=0 loglevel=0 ${DEBUG}
   INITRD volumio.initrd
 " > /boot/syslinux.tmpl
 
@@ -43,6 +55,7 @@ echo "Creating syslinux.cfg from template"
 cp /boot/syslinux.tmpl /boot/syslinux.cfg
 sed -i "s/%%IMGPART%%/${UUID_IMG}/g" /boot/syslinux.cfg
 sed -i "s/%%BOOTPART%%/${UUID_BOOT}/g" /boot/syslinux.cfg
+sed -i "s/%%DATAPART%%/${UUID_DATA}/g" /boot/syslinux.cfg
 
 echo "Editing the Grub UEFI config template"
 # Make grub boot menu transparent
@@ -76,11 +89,13 @@ echo 'configfile ${cmdpath}/grub.cfg' > /grub-redir.cfg
 echo "Using current grub.cfg as run-time template for kernel updates"
 cp /boot/efi/BOOT/grub.cfg /boot/efi/BOOT/grub.tmpl
 sed -i "s/${UUID_BOOT}/%%BOOTPART%%/g" /boot/efi/BOOT/grub.tmpl
+sed -i "s/${UUID_DATA}/%%DATAPART%%/g" /boot/efi/BOOT/grub.tmpl
 
 echo "Inserting root and boot partition UUIDs (building the boot cmdline used in initramfs)"
 # Opting for finding partitions by-UUID
 sed -i "s/root=imgpart=%%IMGPART%%/imgpart=UUID=${UUID_IMG}/g" /boot/efi/BOOT/grub.cfg
 sed -i "s/bootpart=%%BOOTPART%%/bootpart=UUID=${UUID_BOOT}/g" /boot/efi/BOOT/grub.cfg
+sed -i "s/datapart=%%DATAPART%%/datapart=UUID=${UUID_DATA}/g" /boot/efi/BOOT/grub.cfg
 
 cat > /usr/sbin/policy-rc.d << EOF
 exit 101
@@ -111,7 +126,7 @@ fi
 #and remove it again
 echo "Uninstalling grub-efi-ia32-bin and cleaning up grub install"
 apt-get -y --purge remove grub-efi-ia32-bin
-apt-get -y --purge remove efibootmgr libefivar0
+apt-get -y --purge remove efibootmgr libefiboot1 libefivar1
 rm /grub-redir.cfg
 rm -r /boot/grub
 
@@ -201,6 +216,7 @@ echo "squashfs" >> /etc/initramfs-tools/modules
 echo "usbcore" >> /etc/initramfs-tools/modules
 echo "usb_common" >> /etc/initramfs-tools/modules
 echo "mmc_core" >> /etc/initramfs-tools/modules
+echo "mmc_block" >> /etc/initramfs-tools/modules
 echo "sdhci" >> /etc/initramfs-tools/modules
 echo "sdhci_pci" >> /etc/initramfs-tools/modules
 echo "sdhci_acpi" >> /etc/initramfs-tools/modules

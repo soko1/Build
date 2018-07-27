@@ -328,48 +328,48 @@ elif [ $(uname -m) = i686 ] || [ $(uname -m) = x86 ] || [ $(uname -m) = x86_64 ]
   echo "Installing MPD for i386"
   # First we manually install a newer alsa-lib to achieve Direct DSD support
   
-  echo "Installing alsa-lib 1.1.3"
-  wget http://repo.volumio.org/Volumio2/Binaries/libasound2/i386/libasound2_1.1.3-5_i386.deb
-  wget http://repo.volumio.org/Volumio2/Binaries/libasound2/i386/libasound2-data_1.1.3-5_all.deb
-  wget http://repo.volumio.org/Volumio2/Binaries/libasound2/i386/libasound2-dev_1.1.3-5_i386.deb
-  dpkg --force-all -i libasound2-data_1.1.3-5_all.deb
-  dpkg --force-all -i libasound2_1.1.3-5_i386.deb
-  dpkg --force-all -i libasound2-dev_1.1.3-5_i386.deb
-  rm libasound2-data_1.1.3-5_all.deb
-  rm libasound2_1.1.3-5_i386.deb
-  rm libasound2-dev_1.1.3-5_i386.deb 
+  #echo "Installing alsa-lib 1.1.3"
+  #wget http://repo.volumio.org/Volumio2/Binaries/libasound2/i386/libasound2_1.1.3-5_i386.deb
+  #wget http://repo.volumio.org/Volumio2/Binaries/libasound2/i386/libasound2-data_1.1.3-5_all.deb
+  #wget http://repo.volumio.org/Volumio2/Binaries/libasound2/i386/libasound2-dev_1.1.3-5_i386.deb
+  #dpkg --force-all -i libasound2-data_1.1.3-5_all.deb
+  #dpkg --force-all -i libasound2_1.1.3-5_i386.deb
+  #dpkg --force-all -i libasound2-dev_1.1.3-5_i386.deb
+  #rm libasound2-data_1.1.3-5_all.deb
+  #rm libasound2_1.1.3-5_i386.deb
+  #rm libasound2-dev_1.1.3-5_i386.deb 
 
-  echo "Installing MPD 20.6 with Direct DSD Support"
-  wget http://repo.volumio.org/Volumio2/Binaries/mpd-DSD/mpd_0.20.6-1_i386-DSD-2.deb
-  dpkg -i mpd_0.20.6-1_i386-DSD-2.deb
-  rm mpd_0.20.6-1_i386-DSD-2.deb
+  #echo "Installing MPD 20.6 with Direct DSD Support"
+  #wget http://repo.volumio.org/Volumio2/Binaries/mpd-DSD/mpd_0.20.6-1_i386-DSD-2.deb
+  #dpkg -i mpd_0.20.6-1_i386-DSD-2.deb
+  #rm mpd_0.20.6-1_i386-DSD-2.deb
 
-  echo "Installing Upmpdcli"
-  wget http://repo.volumio.org/Packages/Upmpdcli/x86/upmpdcli_1.2.12-1_i386.deb
-  wget http://repo.volumio.org/Packages/Upmpdcli/x86/libupnp6_1.6.20.jfd5-1_i386.deb
-  wget http://repo.volumio.org/Packages/Upmpdcli/x86/libupnpp3_0.15.1-1_i386.deb
-  dpkg -i libupnpp3_0.15.1-1_i386.deb
-  dpkg -i libupnp6_1.6.20.jfd5-1_i386.deb
-  dpkg -i upmpdcli_1.2.12-1_i386.deb
-  rm /libupnpp3_0.15.1-1_i386.deb
-  rm /upmpdcli_1.2.12-1_i386.deb
-  rm /libupnp6_1.6.20.jfd5-1_i386.deb
+  #echo "Installing Upmpdcli"
+  #wget http://repo.volumio.org/Packages/Upmpdcli/x86/upmpdcli_1.2.12-1_i386.deb
+  #wget http://repo.volumio.org/Packages/Upmpdcli/x86/libupnp6_1.6.20.jfd5-1_i386.deb
+  #wget http://repo.volumio.org/Packages/Upmpdcli/x86/libupnpp3_0.15.1-1_i386.deb
+  #dpkg -i libupnpp3_0.15.1-1_i386.deb
+  #dpkg -i libupnp6_1.6.20.jfd5-1_i386.deb
+  #dpkg -i upmpdcli_1.2.12-1_i386.deb
+  #rm /libupnpp3_0.15.1-1_i386.deb
+  #rm /upmpdcli_1.2.12-1_i386.deb
+  #rm /libupnp6_1.6.20.jfd5-1_i386.deb
 
-  echo "Installing Shairport-Sync"
-  wget http://repo.volumio.org/Volumio2/Binaries/shairport-sync-3.0.2-i386.tar.gz
-  tar xf shairport-sync-3.0.2-i386.tar.gz
-  rm /shairport-sync-3.0.2-i386.tar.gz
+  #echo "Installing Shairport-Sync"
+  #wget http://repo.volumio.org/Volumio2/Binaries/shairport-sync-3.0.2-i386.tar.gz
+  #tar xf shairport-sync-3.0.2-i386.tar.gz
+  #rm /shairport-sync-3.0.2-i386.tar.gz
   
-  echo "Installing Shairport-Sync Metadata Reader"
-  wget http://repo.volumio.org/Volumio2/Binaries/shairport-sync-metadata-reader-i386.tar.gz
-  tar xf shairport-sync-metadata-reader-i386.tar.gz
-  rm /shairport-sync-metadata-reader-i386.tar.gz
+  #echo "Installing Shairport-Sync Metadata Reader"
+  #wget http://repo.volumio.org/Volumio2/Binaries/shairport-sync-metadata-reader-i386.tar.gz
+  #tar xf shairport-sync-metadata-reader-i386.tar.gz
+  #rm /shairport-sync-metadata-reader-i386.tar.gz
   
 
-  echo "Installing LINN Songcast module"
-  wget http://repo.volumio.org/Packages/Upmpdcli/x86/sc2mpd_1.1.1-1_i386.deb
-  dpkg -i sc2mpd_1.1.1-1_i386.deb
-  rm /sc2mpd_1.1.1-1_i386.deb
+  #echo "Installing LINN Songcast module"
+  #wget http://repo.volumio.org/Packages/Upmpdcli/x86/sc2mpd_1.1.1-1_i386.deb
+  #dpkg -i sc2mpd_1.1.1-1_i386.deb
+  #rm /sc2mpd_1.1.1-1_i386.deb
 
   echo "Volumio Init Updater"
   wget http://repo.volumio.org/Volumio2/Binaries/x86/volumio-init-updater-v2 -O /usr/local/sbin/volumio-init-updater
@@ -388,16 +388,16 @@ elif [ $(uname -m) = i686 ] || [ $(uname -m) = x86 ] || [ $(uname -m) = x86_64 ]
 
 fi
 
-echo "Installing Upmpdcli Streaming Modules"
-wget http://repo.volumio.org/Packages/Upmpdcli/upmpdcli-gmusic_1.2.12-1_all.deb
-wget http://repo.volumio.org/Packages/Upmpdcli/upmpdcli-qobuz_1.2.12-1_all.deb
-wget http://repo.volumio.org/Packages/Upmpdcli/upmpdcli-tidal_1.2.12-1_all.deb
-dpkg -i upmpdcli-gmusic_1.2.12-1_all.deb
-dpkg -i upmpdcli-qobuz_1.2.12-1_all.deb
-dpkg -i upmpdcli-tidal_1.2.12-1_all.deb
-rm /upmpdcli-gmusic_1.2.12-1_all.deb
-rm /upmpdcli-qobuz_1.2.12-1_all.deb
-rm /upmpdcli-tidal_1.2.12-1_all.deb
+#echo "Installing Upmpdcli Streaming Modules"
+#wget http://repo.volumio.org/Packages/Upmpdcli/upmpdcli-gmusic_1.2.12-1_all.deb
+#wget http://repo.volumio.org/Packages/Upmpdcli/upmpdcli-qobuz_1.2.12-1_all.deb
+#wget http://repo.volumio.org/Packages/Upmpdcli/upmpdcli-tidal_1.2.12-1_all.deb
+#dpkg -i upmpdcli-gmusic_1.2.12-1_all.deb
+#dpkg -i upmpdcli-qobuz_1.2.12-1_all.deb
+#dpkg -i upmpdcli-tidal_1.2.12-1_all.deb
+#rm /upmpdcli-gmusic_1.2.12-1_all.deb
+#rm /upmpdcli-qobuz_1.2.12-1_all.deb
+#rm /upmpdcli-tidal_1.2.12-1_all.deb
 
 echo "Creating Volumio Folder Structure"
 # Media Mount Folders
