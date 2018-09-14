@@ -344,21 +344,15 @@ elif [ $(uname -m) = i686 ] || [ $(uname -m) = x86 ] || [ $(uname -m) = x86_64 ]
   #rm /libupnp6_1.6.20.jfd5-1_i386.deb
 
   #echo "Installing Shairport-Sync"
-  #wget http://repo.volumio.org/Volumio2/Binaries/shairport-sync-3.0.2-i386.tar.gz
-  #tar xf shairport-sync-3.0.2-i386.tar.gz
-  #rm /shairport-sync-3.0.2-i386.tar.gz
+  wget http://repo.volumio.org/Volumio2/Binaries/stretch/shairport-sync/shairport-sync_3.2.1-1_i386.deb
+  dpkg -i shairport-sync_3.2.1-1_i386.deb
+  rm shairport-sync_3.2.1-1_i386.deb
   
-  #echo "Installing Shairport-Sync Metadata Reader"
-  #wget http://repo.volumio.org/Volumio2/Binaries/shairport-sync-metadata-reader-i386.tar.gz
-  #tar xf shairport-sync-metadata-reader-i386.tar.gz
-  #rm /shairport-sync-metadata-reader-i386.tar.gz
+  echo "Installing Shairport-Sync Metadata Reader"
+  wget http://repo.volumio.org/Volumio2/Binaries/shairport-sync-metadata-reader-i386.tar.gz
+  tar xf shairport-sync-metadata-reader-i386.tar.gz
+  rm /shairport-sync-metadata-reader-i386.tar.gz
   
-
-  #echo "Installing LINN Songcast module"
-  #wget http://repo.volumio.org/Packages/Upmpdcli/x86/sc2mpd_1.1.1-1_i386.deb
-  #dpkg -i sc2mpd_1.1.1-1_i386.deb
-  #rm /sc2mpd_1.1.1-1_i386.deb
-
   echo "Volumio Init Updater"
   wget http://repo.volumio.org/Volumio2/Binaries/x86/volumio-init-updater-v2 -O /usr/local/sbin/volumio-init-updater
   chmod a+x /usr/local/sbin/volumio-init-updater
@@ -372,20 +366,7 @@ elif [ $(uname -m) = i686 ] || [ $(uname -m) = x86 ] || [ $(uname -m) = x86_64 ]
   wget http://repo.volumio.org/Volumio2/Binaries/x86/volumio-remote-updater_1.3-i386.deb
   dpkg -i volumio-remote-updater_1.3-i386.deb
   rm /volumio-remote-updater_1.3-i386.deb
-
-
 fi
-
-#echo "Installing Upmpdcli Streaming Modules"
-#wget http://repo.volumio.org/Packages/Upmpdcli/upmpdcli-gmusic_1.2.12-1_all.deb
-#wget http://repo.volumio.org/Packages/Upmpdcli/upmpdcli-qobuz_1.2.12-1_all.deb
-#wget http://repo.volumio.org/Packages/Upmpdcli/upmpdcli-tidal_1.2.12-1_all.deb
-#dpkg -i upmpdcli-gmusic_1.2.12-1_all.deb
-#dpkg -i upmpdcli-qobuz_1.2.12-1_all.deb
-#dpkg -i upmpdcli-tidal_1.2.12-1_all.deb
-#rm /upmpdcli-gmusic_1.2.12-1_all.deb
-#rm /upmpdcli-qobuz_1.2.12-1_all.deb
-#rm /upmpdcli-tidal_1.2.12-1_all.deb
 
 echo "Creating Volumio Folder Structure"
 # Media Mount Folders
