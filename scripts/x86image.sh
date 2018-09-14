@@ -82,10 +82,13 @@ if [ ! -d platform-x86 ]; then
   echo "Platform files (packages) not available yet, getting them from the repo"
   git clone http://github.com/volumio/platform-x86
 fi
-
+echo "Copying kernel install package"
 cp platform-x86/packages-stretch/linux-image-*.deb /mnt/volumio/rootfs
-cp -R platform-x86/packages-stretch/firmware/*.deb /mnt/volumio/rootfs
+echo "Copying the latest firmware into /lib/firmware"
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git --depth 1 /mnt/volumio/rootfs/lib/firmware
+echo "copying firmware additions"
 cp platform-x86/packages-stretch/firmware-brcm-sdio-nvram/broadcom-nvram.tar.xz /mnt/volumio/rootfs
+echo "Copying Alsa Use Case Manager files"
 cp -R platform-x86/packages-stretch/UCM/* /mnt/volumio/rootfs/usr/share/alsa/ucm/
 
 echo "deb http://deb.debian.org/debian/ stretch main contrib non-free

@@ -11,11 +11,7 @@ echo "Installing the kernel and creating initramfs"
 dpkg -i linux-image-*_i386.deb
 rm linux-image-*_i386.deb
 
-echo "Installing Debian Stretch firmware packages"
-for f in ./*.deb ; do
-  echo "Installing firmware " $f
-  dpkg -i --force-all $f
-  done
+echo "Installing firmware packages additions"
 tar xvf broadcom-nvram.tar.xz
 
 echo "Setting sane defaults for baytrail/cherrytrail soundcards"
