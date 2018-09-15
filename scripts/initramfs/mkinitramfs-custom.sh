@@ -405,7 +405,6 @@ fi
 echo "Adding all common dependencies"
 cp "${LIB_GNUE}/libmount.so.1" "${DESTDIR}${LIB_GNUE}"
 cp "${LIB_GNUE}/libparted.so.2" "${DESTDIR}${LIB_GNUE}"
-cp "${LIB_GNUE}/libreadline.so.6" "${DESTDIR}${LIB_GNUE}"
 cp "${LIB_GNUE}/libreadline.so.7" "${DESTDIR}${LIB_GNUE}"
 cp "${LIB_GNUE}/libtinfo.so.5" "${DESTDIR}${LIB_GNUE}"	
 cp "${LIB_GNUE}/libext2fs.so.2" "${DESTDIR}${LIB_GNUE}"

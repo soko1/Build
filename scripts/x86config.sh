@@ -12,7 +12,7 @@ dpkg -i linux-image-*_i386.deb
 rm linux-image-*_i386.deb
 
 echo "Installing firmware packages additions"
-tar xvf broadcom-nvram.tar.xz
+tar xf broadcom-nvram.tar.xz
 
 echo "Setting sane defaults for baytrail/cherrytrail soundcards"
 echo "#!/bin/sh -e
@@ -162,8 +162,6 @@ while true; do
 done" > /opt/volumiokiosk.sh
 chmod +x /opt/volumiokiosk.sh
 
-#echo "  Editing rc.local to start the chromium kiosk"
-#sed -i "s|\\# By default this script does nothing.|\\nsudo -u volumio startx /etc/X11/Xsession /opt/volumiokiosk.sh|" /etc/rc.local
 echo "[Unit]
 Description=Start Volumio Kiosk
 Wants=volumio.service
@@ -203,7 +201,8 @@ exec unclutter &" > /root/.xinitrc
 
 
 echo "Allowing volumio to start an xsession"
-sed -i "s/allowed_users=console/allowed_users=anybody/" /etc/X11/Xwrapper.config
+echo "allowed_users=anybody
+needs_root_rights=yes" > /etc/X11/Xwrapper.config
 
 echo "Creating initramfs"
 echo "Adding custom modules"
