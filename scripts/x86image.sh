@@ -80,7 +80,7 @@ sudo mount -t vfat "${BOOT_PART}" /mnt/volumio/rootfs/boot
 cp scripts/x86config.sh /mnt/volumio/rootfs
 if [ ! -d platform-x86 ]; then
   echo "Platform files (packages) not available yet, getting them from the repo"
-  git clone http://github.com/volumio/platform-x86
+  git clone http://github.com/volumio/platform-x86 --depth 1
 fi
 echo "Copying kernel install package"
 cp platform-x86/packages-stretch/linux-image-*.deb /mnt/volumio/rootfs
