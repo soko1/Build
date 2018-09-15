@@ -334,14 +334,11 @@ elif [ $(uname -m) = i686 ] || [ $(uname -m) = x86 ] || [ $(uname -m) = x86_64 ]
 
   #echo "Installing Upmpdcli"
   wget http://repo.volumio.org/Volumio2/Binaries/stretch/upmpdcli/upmpdcli_1.2.15-2~ppa1~stretch_i386.deb
-  #wget http://repo.volumio.org/Packages/Upmpdcli/x86/libupnp6_1.6.20.jfd5-1_i386.deb
-  #wget http://repo.volumio.org/Packages/Upmpdcli/x86/libupnpp3_0.15.1-1_i386.deb
-  #dpkg -i libupnpp3_0.15.1-1_i386.deb
-  #dpkg -i libupnp6_1.6.20.jfd5-1_i386.deb
+  wget http://repo.volumio.org/Volumio2/Volumio2/Binaries/stretch/upmpdcli/libupnpp4_0.16.0-1_ppa1_stretch_i386.deb
+  dpkg -i libupnpp4_0.16.0-1_ppa1_stretch_i386.deb
   dpkg -i upmpdcli_1.2.15-2~ppa1~stretch_i386.deb
-  #rm /libupnpp3_0.15.1-1_i386.deb
   rm /upmpdcli_1.2.15-2~ppa1~stretch_i386.deb
-  #rm /libupnp6_1.6.20.jfd5-1_i386.deb
+  rm /libupnpp4_0.16.0-1_ppa1_stretch_i386.deb
 
   #echo "Installing Shairport-Sync"
   wget http://repo.volumio.org/Volumio2/Binaries/stretch/shairport-sync/shairport-sync_3.2.1-1_i386.deb
