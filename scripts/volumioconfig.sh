@@ -334,7 +334,7 @@ elif [ $(uname -m) = i686 ] || [ $(uname -m) = x86 ] || [ $(uname -m) = x86_64 ]
 
   #echo "Installing Upmpdcli"
   wget http://repo.volumio.org/Volumio2/Binaries/stretch/upmpdcli/upmpdcli_1.2.15-2~ppa1~stretch_i386.deb
-  wget http://repo.volumio.org/Volumio2/Volumio2/Binaries/stretch/upmpdcli/libupnpp4_0.16.0-1_ppa1_stretch_i386.deb
+  wget http://repo.volumio.org/Volumio2/Binaries/stretch/upmpdcli/libupnpp4_0.16.0-1_ppa1_stretch_i386.deb
   dpkg -i libupnpp4_0.16.0-1_ppa1_stretch_i386.deb
   dpkg -i upmpdcli_1.2.15-2~ppa1~stretch_i386.deb
   rm /upmpdcli_1.2.15-2~ppa1~stretch_i386.deb

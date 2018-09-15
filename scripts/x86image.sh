@@ -203,7 +203,7 @@ sudo losetup -d ${LOOP_DEV}
 sync
 
 echo "X86 Image file created"
-echo "Building VMDK Virtual Image File"
-qemu-img convert ${IMG_FILE} -O vmdk Volumio-dev.vmdk
-md5sum Volumio-dev.vmdk > Volumio-dev.vmdk.md5
-echo "VMDK Virtual Image File generated"
+#echo "Building VMDK Virtual Image File"
+#qemu-img convert ${IMG_FILE} -O vmdk Volumio-dev.vmdk
+#md5sum Volumio-dev.vmdk > Volumio-dev.vmdk.md5
+#echo "VMDK Virtual Image File generated"
