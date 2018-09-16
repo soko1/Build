@@ -16,7 +16,7 @@ echo "Installing Debian packaged firmware"
 #  dpkg -i --force-all $f
 #done
 echo "Installing firmware & additions"
-tar xf linux-firmware-stretch.xz
+tar xfJ linux-firmware-stretch.xz
 tar xf broadcom-nvram.tar.xz
 
 echo "Setting sane defaults for baytrail/cherrytrail soundcards"
