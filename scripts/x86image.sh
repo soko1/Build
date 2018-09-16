@@ -85,10 +85,11 @@ fi
 echo "Copying kernel install package"
 cp platform-x86/packages-stretch/linux-image-*.deb /mnt/volumio/rootfs
 echo "Copying the latest firmware into /lib/firmware"
-git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git --depth 1 /mnt/volumio/rootfs/lib/firmware
-du -h -d 1 /mnt/volumio/rootfs/lib/firmware
-rm -r /mnt/volumio/rootfs/lib/firmware/.git
-du -h -d 1 /mnt/volumio/rootfs/lib/firmware
+#git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git --depth 1 /mnt/volumio/rootfs/lib/firmware
+#rm -r /mnt/volumio/rootfs/lib/firmware/.git
+#cp platform-x86/packages-stretch/firmware/firmware*.deb /mnt/volumio/rootfs
+mkdir /mnt/volumio/rootfs/lib/linux-firmware
+cp platform-x86/packages-stretch/linux-firmware-stretch.xz /mnt/volumio/rootfs
 echo "Copying firmware additions"
 cp platform-x86/packages-stretch/firmware-brcm-sdio-nvram/broadcom-nvram.tar.xz /mnt/volumio/rootfs
 echo "Copying Alsa Use Case Manager files"
@@ -136,9 +137,10 @@ chroot /mnt/volumio/rootfs /bin/bash -x <<'EOF'
 /x86config.sh -p
 EOF
 
-rm /mnt/volumio/rootfs/broadcom-nvram.tar.xz
+rm /mnt/volumio/rootfs/broadcom-nvram.tar.xz /mnt/volumio/rootfs/linux-firmware.stretch.xz /mnt/volumio/rootfs/*.deb
 rm /mnt/volumio/rootfs/root/init /mnt/volumio/rootfs/x86config.sh
 rm /mnt/volumio/rootfs/ata-modules.x86
+ls -l /mnt/volumio/rootfs
 sync
 
 echo "Unmounting Temp Devices"

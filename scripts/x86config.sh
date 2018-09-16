@@ -9,9 +9,14 @@ echo "Installing the kernel and creating initramfs"
 # Exact kernel version not known
 # Not brilliant, but safe enough as x86.sh only copied one image
 dpkg -i linux-image-*_i386.deb
-rm linux-image-*_i386.deb
 
-echo "Installing firmware packages additions"
+echo "Installing Debian packaged firmware"
+#for f in ./firmware*.deb ; do
+#  echo "Installing firmware " $f
+#  dpkg -i --force-all $f
+#done
+echo "Installing firmware & additions"
+tar xf linux-firmware-stretch.xz
 tar xf broadcom-nvram.tar.xz
 
 echo "Setting sane defaults for baytrail/cherrytrail soundcards"
