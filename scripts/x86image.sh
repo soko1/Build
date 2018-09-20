@@ -85,11 +85,7 @@ fi
 echo "Copying kernel install package"
 cp platform-x86/packages-stretch/linux-image-*.deb /mnt/volumio/rootfs
 echo "Copying the latest firmware into /lib/firmware"
-#git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git --depth 1 /mnt/volumio/rootfs/lib/firmware
-#rm -r /mnt/volumio/rootfs/lib/firmware/.git
-#cp platform-x86/packages-stretch/firmware/firmware*.deb /mnt/volumio/rootfs
-mkdir /mnt/volumio/rootfs/lib/linux-firmware
-tar xfJ platform-x86/packages-stretch/linux-firmware-stretch.xz -C /mnt/volumio/rootfs
+tar xfJ platform-x86/packages-stretch/linux-firmware-stretch.tar.xz -C /mnt/volumio/rootfs
 echo "Copying firmware additions"
 tar xf platform-x86/packages-stretch/firmware-brcm-sdio-nvram/broadcom-nvram.tar.xz -C /mnt/volumio/rootfs
 echo "Copying Alsa Use Case Manager files"
