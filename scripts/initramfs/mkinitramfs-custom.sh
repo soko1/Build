@@ -405,8 +405,15 @@ fi
 echo "Adding all common dependencies"
 cp "${LIB_GNUE}/libmount.so.1" "${DESTDIR}${LIB_GNUE}"
 cp "${LIB_GNUE}/libparted.so.2" "${DESTDIR}${LIB_GNUE}"
-cp "${LIB_GNUE}/libreadline.so.6" "${DESTDIR}${LIB_GNUE}"
-cp "${LIB_GNUE}/libreadline.so.7" "${DESTDIR}${LIB_GNUE}"
+if [ -f "${LIB_GNUE}/libreadline.so.6" ]; then
+# we are building for Debian jessie
+  cp "${LIB_GNUE}/libreadline.so.6" "${DESTDIR}${LIB_GNUE}"
+elif [ -f "${LIB_GNUE}/libreadline.so.7" ]; then
+# we are building for Debian stretch
+  cp "${LIB_GNUE}/libreadline.so.7" "${DESTDIR}${LIB_GNUE}"
+else
+  echo "No libreadline.so.6 (jessie) and no libreadline.so.7 (stretch) found"
+fi
 cp "${LIB_GNUE}/libtinfo.so.5" "${DESTDIR}${LIB_GNUE}"	
 cp "${LIB_GNUE}/libext2fs.so.2" "${DESTDIR}${LIB_GNUE}"
 cp "${LIB_GNUE}/libcom_err.so.2" "${DESTDIR}${LIB_GNUE}"
