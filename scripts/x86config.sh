@@ -208,6 +208,8 @@ echo "usbcore" >> /etc/initramfs-tools/modules
 echo "usb_common" >> /etc/initramfs-tools/modules
 echo "mmc_core" >> /etc/initramfs-tools/modules
 echo "mmc_block" >> /etc/initramfs-tools/modules
+echo "nvme_core" >> /etc/initramfs-tools/modules
+echo "nvme" >> /etc/initramfs-tools/modules
 echo "sdhci" >> /etc/initramfs-tools/modules
 echo "sdhci_pci" >> /etc/initramfs-tools/modules
 echo "sdhci_acpi" >> /etc/initramfs-tools/modules
