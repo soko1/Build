@@ -162,7 +162,9 @@ if [ -n "$BUILD" ]; then
   else
       git clone --depth 1 -b master --single-branch https://github.com/volumio/Volumio2.git build/$BUILD/root/volumio
   fi
-  echo 'Cloning Volumio UI'
+  //TODO UNCOMMENT AFTER MERGING UPDATERV4
+  echo "EXIT_ON_EXCEPTION=true
+  PUSH_UPDATES_COMM=false" > /volumio/.env  echo 'Cloning Volumio UI'
   git clone --depth 1 -b dist --single-branch https://github.com/volumio/Volumio2-UI.git "build/$BUILD/root/volumio/http/www"
   echo "Adding os-release infos"
   {
