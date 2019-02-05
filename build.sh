@@ -12,7 +12,10 @@ NORM=$(tput sgr0)
 BOLD=$(tput bold)
 REV=$(tput smso)
 
+# Build Variables
 ARCH=none
+SUITE=buster
+
 #Help function
 function HELP {
   echo "
@@ -114,6 +117,7 @@ if [ -n "$BUILD" ]; then
   if [ "$BUILD" = arm ] || [ "$BUILD" = arm-dev ]; then
     ARCH="armhf"
     BUILD="arm"
+    CONF="recipes/$BUILD-$SUITE.conf"
     echo "Building ARM Base System with Raspbian"
   elif [ "$BUILD" = armv7 ] || [ "$BUILD" = armv7-dev ]; then
     ARCH="armhf"

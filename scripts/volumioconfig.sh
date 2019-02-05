@@ -185,7 +185,7 @@ if [ $(uname -m) = armv7l ] || [ $(uname -m) = aarch64 ]; then
 
      echo "Installing MPD for armv6"
      # First we manually install a newer alsa-lib to achieve Direct DSD support
-
+     : '
      echo "Installing alsa-lib 1.1.3"
      wget http://repo.volumio.org/Volumio2/Binaries/libasound2/armv6/libasound2_1.1.3-5_armhf.deb
      wget http://repo.volumio.org/Volumio2/Binaries/libasound2/armv6/libasound2-data_1.1.3-5_all.deb
@@ -218,11 +218,12 @@ if [ $(uname -m) = armv7l ] || [ $(uname -m) = aarch64 ]; then
      dpkg -i volumio-remote-updater_1.3-armhf.deb
      rm volumio-remote-updater_1.3-armhf.deb
 
+     '
 
   elif [ $ARCH = armv7 ]; then
      echo "Installing MPD for armv7"
      # First we manually install a newer alsa-lib to achieve Direct DSD support
-
+     : '
      echo "Installing alsa-lib 1.1.3"
      wget http://repo.volumio.org/Volumio2/Binaries/libasound2/armv7/libasound2_1.1.3-5_armhf.deb
      wget http://repo.volumio.org/Volumio2/Binaries/libasound2/armv7/libasound2-data_1.1.3-5_all.deb
@@ -254,11 +255,11 @@ if [ $(uname -m) = armv7l ] || [ $(uname -m) = aarch64 ]; then
     wget http://repo.volumio.org/Volumio2/Binaries/arm/volumio-remote-updater_1.3-armv7.deb
     dpkg -i volumio-remote-updater_1.3-armv7.deb
     rm volumio-remote-updater_1.3-armv7.deb
-
+    '
   fi
   #Remove autostart of upmpdcli
   update-rc.d upmpdcli remove
-
+  : '
   echo "Installing Shairport-Sync"
   wget http://repo.volumio.org/Volumio2/Binaries/shairport-sync-3.0.2-arm.tar.gz
   tar xf shairport-sync-3.0.2-arm.tar.gz
@@ -287,7 +288,7 @@ if [ $(uname -m) = armv7l ] || [ $(uname -m) = aarch64 ]; then
   echo "Adding special version for edimax dongle"
   wget http://repo.volumio.org/Volumio2/Binaries/arm/hostapd-edimax -P /usr/sbin/
   chmod a+x /usr/sbin/hostapd-edimax
-
+  '
   echo "interface=wlan0
 ssid=Volumio
 channel=4
@@ -347,7 +348,7 @@ elif [ $(uname -m) = i686 ] || [ $(uname -m) = x86 ] || [ $(uname -m) = x86_64 ]
 
   echo "Installing MPD for i386"
   # First we manually install a newer alsa-lib to achieve Direct DSD support
-  
+  : '
   echo "Installing alsa-lib 1.1.3"
   wget http://repo.volumio.org/Volumio2/Binaries/libasound2/i386/libasound2_1.1.3-5_i386.deb
   wget http://repo.volumio.org/Volumio2/Binaries/libasound2/i386/libasound2-data_1.1.3-5_all.deb
@@ -404,7 +405,7 @@ elif [ $(uname -m) = i686 ] || [ $(uname -m) = x86 ] || [ $(uname -m) = x86_64 ]
   wget http://repo.volumio.org/Volumio2/Binaries/x86/volumio-remote-updater_1.3-i386.deb
   dpkg -i volumio-remote-updater_1.3-i386.deb
   rm /volumio-remote-updater_1.3-i386.deb
-
+  '
 
 fi
 
