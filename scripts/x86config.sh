@@ -10,6 +10,10 @@ echo "Installing the kernel and creating initramfs"
 # Not brilliant, but safe enough as x86.sh only copied one image
 dpkg -i linux-image-*_i386.deb
 
+#TODO: remove when buster issues with busybox have been resolved
+echo "Installing Busybox v1.22.1"
+dpkg -i busybox_1.22.0-19+b3_i386.deb
+
 echo "Setting sane defaults for baytrail/cherrytrail soundcards"
 echo "#!/bin/sh -e
 /usr/local/bin/bytcr-init.sh

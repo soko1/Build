@@ -84,10 +84,17 @@ if [ ! -d platform-x86 ]; then
 fi
 echo "Copying kernel install package"
 cp platform-x86/packages-stretch/linux-image-*.deb /mnt/volumio/rootfs
+
+#TODO: remove this when buster issues with busybox have been solved
+echo "Copying Busybox v1.22.1 (Stretch: Debian 1:1.22.0-19+b3) instead of buster version"
+cp platform-x86/packages-stretch/busybox*.deb /mnt/volumio/rootfs
+
 echo "Copying the latest firmware into /lib/firmware"
 tar xfJ platform-x86/packages-stretch/linux-firmware-stretch.tar.xz -C /mnt/volumio/rootfs
+
 echo "Copying firmware additions"
 tar xf platform-x86/packages-stretch/firmware-brcm-sdio-nvram/broadcom-nvram.tar.xz -C /mnt/volumio/rootfs
+
 echo "Copying Alsa Use Case Manager files"
 cp -R platform-x86/packages-stretch/UCM/* /mnt/volumio/rootfs/usr/share/alsa/ucm/
 
