@@ -212,14 +212,18 @@ if [ $(uname -m) = armv7l ] || [ $(uname -m) = aarch64 ]; then
      rm libupnpp3_0.15.1-1_armhf.deb
      rm libupnp6_1.6.20.jfd5-1_armhf.deb
      rm upmpdcli_1.2.12-1_armhf.deb
-
+     '
      echo "Adding volumio-remote-updater for armv6"
      wget http://repo.volumio.org/Volumio2/Binaries/arm/volumio-remote-updater_1.3-armhf.deb
      dpkg -i volumio-remote-updater_1.3-armhf.deb
      rm volumio-remote-updater_1.3-armhf.deb
 
-     '
-
+     ##TEMPORARY UNTIL WE FIND OUT WHATS WRONG WITH BUSTERS BUSYBOX 
+     echo "Installing Busybox"
+     wget http://repo.volumio.org/Volumio2/Binaries/buster/packages/busybox/busybox_1.22.0-19_armhf.deb
+     dpkg -i busybox_1.22.0-19_armhf.deb
+     rm busybox_1.22.0-19_armhf.deb
+     
   elif [ $ARCH = armv7 ]; then
      echo "Installing MPD for armv7"
      # First we manually install a newer alsa-lib to achieve Direct DSD support

@@ -37,8 +37,8 @@ options snd-usb-audio index=5
 options snd_bcm2835 index=0" >> /etc/modprobe.d/alsa-base.conf
 
 echo "Adding Raspberrypi.org Repo"
-echo "deb http://archive.raspbian.org/raspbian/ buster main ui
-deb-src http://archive.raspbian.org/raspbian/ buster main ui
+echo "deb http://archive.raspberrypi.org/debian/ buster main ui
+deb-src http://archive.raspberrypi.org/debian/ buster main ui
 " >> /etc/apt/sources.list.d/raspi.list
 
 
@@ -58,8 +58,12 @@ apt-get -y install binutils i2c-tools
 # Commenting raspi-config, not sure it is really needed
 #apt-get -y install libnewt0.52 whiptail triggerhappy lua5.1 locales
 
+sudo apt-get install ntpdate
+sudo ntpdate -u ntp.ubuntu.com
+sudo apt-get install ca-certificates
+
 echo "Installing Kernel from Rpi-Update"
-sudo curl -L --output /usr/bin/rpi-update https://raw.githubusercontent.com/Hexxeh/rpi-update/master/rpi-update && sudo chmod +x /usr/bin/rpi-update
+sudo curl -k -L --output /usr/bin/rpi-update https://raw.githubusercontent.com/Hexxeh/rpi-update/master/rpi-update && sudo chmod +x /usr/bin/rpi-update
 touch /boot/start.elf
 mkdir /lib/modules
 
