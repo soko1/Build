@@ -55,12 +55,10 @@ curl -s http://archive.volumio.org/raspbian/raspbian.public.key | sudo apt-key a
 echo "Installing R-pi specific binaries"
 apt-get update
 apt-get -y install binutils i2c-tools
-# Commenting raspi-config, not sure it is really needed
-#apt-get -y install libnewt0.52 whiptail triggerhappy lua5.1 locales
 
-sudo apt-get install ntpdate
-sudo ntpdate -u ntp.ubuntu.com
-sudo apt-get install ca-certificates
+## TEMPORARY FIX FOR BUSTER SSL ISSUES
+echo "insecure" >> $HOME/.curlrc
+echo "insecure" >> /root/.curlrc
 
 echo "Installing Kernel from Rpi-Update"
 sudo curl -k -L --output /usr/bin/rpi-update https://raw.githubusercontent.com/Hexxeh/rpi-update/master/rpi-update && sudo chmod +x /usr/bin/rpi-update
