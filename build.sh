@@ -123,14 +123,11 @@ if [ -n "$BUILD" ]; then
     ARCH="armhf"
     BUILD="armv7"
     echo "Building ARMV7 Base System with Debian"
-  elif [ "$BUILD" = armv8 ] || [ "$BUILD" = armv8-dev ]; then
-    ARCH="arm64"
-    BUILD="armv8"
-    echo "Building ARMV8 (arm64) Base System with Debian"
   elif [ "$BUILD" = x86 ] || [ "$BUILD" = x86-dev ]; then
     echo 'Building X86 Base System with Debian'
     ARCH="i386"
     BUILD="x86"
+	CONF="recipes/$BUILD-$SUITE.conf"
   elif [ ! -f recipes/$BUILD.conf ]; then
     echo "Unexpected Base System architecture '$BUILD' - aborting."
     exit

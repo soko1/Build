@@ -410,6 +410,9 @@ elif [ $(uname -m) = i686 ] || [ $(uname -m) = x86 ] || [ $(uname -m) = x86_64 ]
   dpkg -i volumio-remote-updater_1.3-i386.deb
   rm /volumio-remote-updater_1.3-i386.deb
   '
+  wget http://repo.volumio.org/Volumio2/Binaries/buster/packages/busybox/busybox_1.22.0-19+b3_i386.deb
+  dpkg -i busybox_1.22.0-19+b3_i386.deb
+  rm busybox_1.22.0-19+b3_i386.deb
 
 fi
 
