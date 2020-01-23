@@ -25,7 +25,8 @@ where switches are :
  * -d `<dev>`  Create Image for Specific Devices. Supported device names:
              **pi**, **odroidc1/2/xu4/x2**, **udooneo**, **udooqdl**, **cuboxi**, **pine64**, **sparky**, **bbb**, **bpipro**, bpim2u, cubietruck, compulab, **x86**
  * -l `<repo>` Create docker layer. Give a Docker Repository name as the argument.
- * -v `<vers>` Version
+ * -v `<vers>` Version  
+ * -s `<os-suite>` OS Suite. Currently can be jessie or buster. You may omit the -s parameters for jessie as this is default.
 
 Example: Build a Raspberry PI image from scratch, version 2.0 : 
 ```
@@ -36,10 +37,48 @@ You do not have to build the architecture and the image at the same time.
 
 Example: Build the architecture for x86 first and the image version MyVersion in a second step:
 ```
-./build.sh -b x86
+./build.sh -b x86 -s buster
 
 ./build.sh -d x86 -v MyVersion
 ```
+
+#### Modifications for Building on a Ubuntu or Debian Buster host
+
+This regards **multistrap** (used for building the rootfs) and the use of  **mkinitramfs-custom.sh** (jessie) or **mkinitramfs-volumio.sh** (buster).
+
+== Multistrap   
+This does not work OOTB in Debian Buster and Ubuntu, please patch 
+
+- Ubuntu
+Add the following 3 lines to the **build.sh** script, just before calling the multistrap script (code as follows):
+
+	..
+	..
+	mkdir -p "build/$BUILD/root/etc/apt/trusted.gpg.d"
+	apt-key --keyring "build/$BUILD/root/etc/apt/trusted.gpg.d/debian.gpg"  adv --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 7638D0442B90D010
+	apt-key --keyring "build/$BUILD/root/etc/apt/trusted.gpg.d/debian.gpg"  adv --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-key CBF8D6FD518E17E1
+	multistrap -a "$ARCH" -f "$CONF"
+	..
+	..
+
+- Debian Buster
+The above does not work for Debian, but instead patch "/usr/sbin/multistrap".
+Look for the line with "AllowInsecureRepositories=true"" and add an extra line above it to allow unauthenticated packages, it should read like this:
+
+	..
+	..
+	$config_str .= " -o Apt::Get::AllowUnauthenticated=true;"
+	$config_str .= " -o Acquire::AllowInsecureRepositories=true";
+	..
+	..
+	 
+== mkinitramfs-custom.sh  
+This script is known to fail on Ubuntu and Debian Buster, trying to locate the rootfs device.  
+This only happens with <device>config.sh scripts which change the initramfs config from MODULES=most to **MODULES=dep**.  
+As Modules=dep does not seem to add relevant additional module anyway, replace the usage of MODULES=dep to **MODULES=list**, which will only add the modules as specified in the list.  
+The standard dependencies get added anyway.  
+Tested with a number of these scripts, they all work.
+
 
 #### Sources 
 
