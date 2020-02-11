@@ -394,11 +394,11 @@ elif [ $(uname -m) = i686 ] || [ $(uname -m) = x86 ] || [ $(uname -m) = x86_64 ]
   tar xf shairport-sync-metadata-reader-i386.tar.gz
   rm /shairport-sync-metadata-reader-i386.tar.gz
 
-  echo "Installing LINN Songcast module"
-  wget http://repo.volumio.org/Packages/Upmpdcli/x86/sc2mpd_1.1.1-1_i386.deb
-  : '
-  dpkg -i sc2mpd_1.1.1-1_i386.deb
-  '
+  #echo "Installing LINN Songcast module"
+  #wget http://repo.volumio.org/Packages/Upmpdcli/x86/sc2mpd_1.1.1-1_i386.deb
+  #
+  #dpkg -i sc2mpd_1.1.1-1_i386.deb
+  
   rm /sc2mpd_1.1.1-1_i386.deb
   echo "====> TODO: add missing LINN Songcast for buster" 	
 
