@@ -13,6 +13,7 @@ dpkg -i linux-image-*_i386.deb
 echo "Setting sane defaults for baytrail/cherrytrail soundcards"
 echo "#!/bin/sh -e
 /usr/local/bin/bytcr-init.sh
+/usr/local/bin/volumio_hda_intel_tweak.sh
 exit 0" > /etc/rc.local
 
 echo "Creating node/ nodejs symlinks to stay compatible with the armv6/v7 platforms"
@@ -92,9 +93,7 @@ echo "Inserting root and boot partition UUIDs (building the boot cmdline used in
 sed -i "s/root=imgpart=%%IMGPART%%/imgpart=UUID=${UUID_IMG}/g" /boot/efi/BOOT/grub.cfg
 sed -i "s/bootpart=%%BOOTPART%%/bootpart=UUID=${UUID_BOOT}/g" /boot/efi/BOOT/grub.cfg
 sed -i "s/datapart=%%DATAPART%%/datapart=UUID=${UUID_DATA}/g" /boot/efi/BOOT/grub.cfg
-
 sed -i "s/splash quiet loglevel=0/loglevel=8/g" /boot/efi/BOOT/grub.cfg
-cat /boot/efi/BOOT/grub.cfg
 
 cat > /usr/sbin/policy-rc.d << EOF
 exit 101

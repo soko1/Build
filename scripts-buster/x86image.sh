@@ -94,9 +94,14 @@ echo "Copying Alsa Use Case Manager files"
 cp -R platform-x86/packages-buster/UCM/* /mnt/volumio/rootfs/usr/share/alsa/ucm/
 
 #TODO: not checked with other Intel SST bytrt/cht audio boards yet, needs more input
+#      to bew added to the snd_hda_audio tweaks (see below)
 mkdir -p /mnt/volumio/rootfs/usr/local/bin/
 cp platform-x86/packages-buster/bytcr-init/bytcr-init.sh /mnt/volumio/rootfs/usr/local/bin/
 chmod +x /mnt/volumio/rootfs/usr/local/bin/bytcr-init.sh
+
+echo "Adding hda sound tweaks..."
+cp volumio/bin/volumio_hda_intel_tweak.sh /mnt/volumio/root/usr/local/bin/volumio_hda_intel_tweak.sh
+chmod +x /mnt/volumio/rootfs/usr/local/bin/volumio_hda_intel_tweak.sh
 
 cp volumio/splash/volumio.png /mnt/volumio/rootfs/boot
 
@@ -104,6 +109,8 @@ echo "Preparing initramfs files..."
 cp scripts-buster/initramfs/init-x86 /mnt/volumio/rootfs/root/init
 cp scripts-buster/initramfs/mkinitramfs-custom.sh /mnt/volumio/rootfs/usr/local/sbin/mkinitramfs-custom.sh
 cp volumio/etc/ata-modules.x86 /mnt/volumio/rootfs/ata-modules.x86
+
+
 
 echo "Copying the scripts for updating from usb..."
 wget -P /mnt/volumio/rootfs/root http://repo.volumio.org/Volumio2/Binaries/volumio-init-updater
