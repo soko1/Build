@@ -42,8 +42,8 @@ cp volumio/etc/dhcp/dhcpd.conf build/$BUILD/root/etc/dhcp/dhcpd.conf
 cp volumio/etc/samba/smb.conf build/$BUILD/root/etc/samba/smb.conf
 #Udev confs file (NET)
 cp -r volumio/etc/udev build/$BUILD/root/etc/
-#NODE_MOUNT_HANDLER aktivieren
-sed -i "s/NODE_MOUNT_HANDLER=false/NODE_MOUNT_HANDLER=true/g" volumio/volumio/.env
+#Activate NODE_MOUNT_HANDLER
+sed -i "s/NODE_MOUNT_HANDLER=false/NODE_MOUNT_HANDLER=true/g" volumio/.env
 
 #Polkit for USB mounts
 cp -r volumio/etc/polkit-1/localauthority/50-local.d/50-mount-as-pi.pkla build/$BUILD/root/etc/polkit-1/localauthority/50-local.d/50-mount-as-pi.pkla
