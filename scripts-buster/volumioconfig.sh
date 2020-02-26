@@ -369,7 +369,7 @@ elif [ $(uname -m) = i686 ] || [ $(uname -m) = x86 ] || [ $(uname -m) = x86_64 ]
   cd /
 
   echo "Installing MPD 21.16 for i386"
-  https://repo.volumio.org/Volumio2/Buster/Custom%20Packages/x86/mpd_0.21.16-1_i386.deb
+  wget https://repo.volumio.org/Volumio2/Buster/Custom%20Packages/x86/mpd_0.21.16-1_i386.deb
   dpkg -i mpd_0.21.16-1_i386.deb
   rm mpd_0.21.16-1_i386.deb
 
@@ -413,7 +413,7 @@ elif [ $(uname -m) = i686 ] || [ $(uname -m) = x86 ] || [ $(uname -m) = x86_64 ]
   echo "====> TODO: check if we still need a custom compiled zsync instead of the repo one"
 
   echo "Adding volumio-remote-updater for i386"
-  https://repo.volumio.org/Volumio2/Buster/Custom%20Packages/x86/volumio-remote-updater_1.5-i386.deb
+  wget https://repo.volumio.org/Volumio2/Buster/Custom%20Packages/x86/volumio-remote-updater_1.5-i386.deb
   dpkg -i volumio-remote-updater_1.5-i386.deb
   rm /volumio-remote-updater_1.5-i386.deb
 fi
