@@ -43,7 +43,7 @@ cp volumio/etc/samba/smb.conf build/$BUILD/root/etc/samba/smb.conf
 #Udev confs file (NET)
 cp -r volumio/etc/udev build/$BUILD/root/etc/
 #Activate NODE_MOUNT_HANDLER
-sed -i "s/NODE_MOUNT_HANDLER=false/NODE_MOUNT_HANDLER=true/g" volumio/.env
+sed -i "s/NODE_MOUNT_HANDLER=false/NODE_MOUNT_HANDLER=true/g" build/$BUILD/root/volumio/.env
 
 #Polkit for USB mounts
 cp -r volumio/etc/polkit-1/localauthority/50-local.d/50-mount-as-pi.pkla build/$BUILD/root/etc/polkit-1/localauthority/50-local.d/50-mount-as-pi.pkla
@@ -60,8 +60,7 @@ chmod 777 build/$BUILD/root/etc/mpd.conf
 cp volumio/etc/systemd/journald.conf build/$BUILD/root/etc/systemd/journald.conf
 #Volumio SystemD Services
 cp -r volumio/lib build/$BUILD/root/
-#Override airplay.service with buster modification
-cp -r volumio-buster/lib build/$BUILD/root/
+
 # Netplug
 # removed , we are using ifplugd
 #cp -rp volumio/etc/netplug build/$BUILD/root/etc/
