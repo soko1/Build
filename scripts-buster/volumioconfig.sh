@@ -504,6 +504,9 @@ echo "Linking Volumio Command Line Client"
 ln -s /volumio/app/plugins/system_controller/volumio_command_line_client/volumio.sh /usr/local/bin/volumio
 chmod a+x /usr/local/bin/volumio
 
+echo "Proper linking of Shairport Sync path according to systemd"
+ln -s /usr/bin/shairport-sync /usr/local/bin/shairport-sync
+
 #####################
 #Audio Optimizations#-----------------------------------------
 #####################
