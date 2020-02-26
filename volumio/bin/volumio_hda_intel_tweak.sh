@@ -1,5 +1,3 @@
-  GNU nano 3.2                                 /usr/local/bin/volumio_hda_intel_tweak.sh                                            
-
 #!/bin/bash
 
 for card in /sys/class/sound/card*; do
