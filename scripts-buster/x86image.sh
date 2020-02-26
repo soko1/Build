@@ -100,7 +100,7 @@ cp platform-x86/packages-buster/bytcr-init/bytcr-init.sh /mnt/volumio/rootfs/usr
 chmod +x /mnt/volumio/rootfs/usr/local/bin/bytcr-init.sh
 
 echo "Adding hda sound tweaks..."
-cp volumio/bin/volumio_hda_intel_tweak.sh /mnt/volumio/root/usr/local/bin/volumio_hda_intel_tweak.sh
+cp volumio/bin/volumio_hda_intel_tweak.sh /mnt/volumio/rootfs/usr/local/bin/volumio_hda_intel_tweak.sh
 chmod +x /mnt/volumio/rootfs/usr/local/bin/volumio_hda_intel_tweak.sh
 
 cp volumio/splash/volumio.png /mnt/volumio/rootfs/boot
