@@ -8,9 +8,11 @@ for card in /sys/class/sound/card*; do
     "HDA Intel PCH" )
       case $chip in 
         "Realtek ALC283" )
-          echo "Unmute / Mute SPDIF Output for the sound card"
-          echo "-----------------------------"
-          /usr/bin/amixer -c $cardno set IEC958,16 unmute
+          # not all HDA Intel PCH/ ALC283 have spdif out ==> mixer may be missing
+          mixer_exists=$(amixer -c 0 | grep "IE958,16")
+          if [ ! "x$mixer_exists" == "x" ]; then 
+            /usr/bin/amixer -c $cardno set IEC958,16 unmute
+          fi
           ;;
         "Realtek ALC892" )
           /usr/bin/amixer -c $cardno set Front,0 mute
