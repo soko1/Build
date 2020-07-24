@@ -27,6 +27,7 @@ parse_disk()
 
 parse_cmdline()
 {
+	sleep 1
 	export CMDLINE="$(cat /proc/cmdline)"
 	for p in ${CMDLINE};
 	do
@@ -111,12 +112,32 @@ mount_target_boot()
 	mkdir -p $BOOT/temp/boot
 	mkdir -p $BOOT/temp/image
 	mount -t vfat ${TARGETBOOT} $BOOT/temp/boot
-	mount -t ext4 ${TARGETIMAGE} $BOOT/temp/image
+    mount -t ext4 ${TARGETIMAGE} $BOOT/temp/image
+}
+
+search_boot_device()
+{
+	echo "[info] Waiting for boot device"
+	for i in 1 2 3 4 5 6 7 8 9 10
+	do
+		BOOTPARTDEV=`parse_disk ${BOOTPART}`
+		if [ ! -b "${BOOTPARTDEV}" ]; then
+		  echo "[info] Boot partition not ready, retrying mdev in 0.5 seconds"
+		  sleep 0.5
+		  mdev -s
+		else
+		  break
+		fi
+  	done
+	if [ ! -b "${BOOTPARTDEV}" ]; then
+		print_msg "Boot device ${BOOTPART} failed"
+		exec sh
+	fi
 }
 
 search_target_device()
 {
-echo "[info] Checking if target device is up"
+echo "[info] Waiting target device"
 # Retry mdev -s 6 times before throwing the towel
 for i in 1 2 3 4 5 6
 	do
@@ -129,7 +150,7 @@ for i in 1 2 3 4 5 6
 		fi
   	done
 	if [ ! -b "${TARGETDEV}" ]; then
-		print_msg "Device ${TARGETDEV} failed"
+		print_msg "Target device ${TARGETDEV} failed"
 		exec sh
 	fi
 }

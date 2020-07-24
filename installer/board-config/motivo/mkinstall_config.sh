@@ -75,6 +75,11 @@ non_standard_repo()
 
 }
 
+fetch_bootpart_uuid()
+{
+   :
+}
+
 write_device_files()
 {
    mkdir /mnt/volumio/rootfs/boot/dtb

@@ -70,15 +70,16 @@ parted -s "${LOOP_DEV}" set 1 boot on
 partprobe "${LOOP_DEV}"
 kpartx -s -a "${LOOP_DEV}"
 
-FLASH_PART=`echo /dev/mapper/"$( echo ${LOOP_DEV} | sed -e 's/.*\/\(\w*\)/\1/' )"p1`
+FLASH_PART=`echo /dev/mapper/"$(echo ${LOOP_DEV} | sed -e 's/.*\/\(\w*\)/\1/' )"p1`
 if [ ! -b "${FLASH_PART}" ]
 then
    echo "[err] ${FLASH_PART} doesn't exist"
    exit 1
 fi
 
-echo "[info] Creating boot and rootfs filesystem"
+echo "[info] Creating boot (and temp rootfs) filesystem"
 mkfs -t vfat -n BOOT "${FLASH_PART}"
+fetch_bootpart_uuid
 
 echo "[info] Preparing for the  kernel/ platform files"
 if [ ! -z $NONSTANDARD_REPO ]; then
@@ -149,6 +150,7 @@ BOOTDELAY=${BOOTDELAY}
 BOOTDEV=${BOOTDEV}
 BOOTPART=${BOOTPART}
 BOOTCONFIG=${BOOTCONFIG}
+FACTORYCOPY=${FACTORYCOPY}
 TARGETBOOT=${TARGETBOOT}
 TARGETDEV=${TARGETDEV}
 TARGETDATA=${TARGETDATA}

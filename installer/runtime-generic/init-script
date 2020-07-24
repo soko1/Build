@@ -31,6 +31,7 @@ echo "[info] Including config script functions"
 . /scripts/gen-functions
 . /scripts/board-functions
 
+
 led_show_init_signal
 
 parse_cmdline
@@ -40,8 +41,12 @@ load_modules
 check_uuids
 
 if [ ! -z "${BOOTDELAY}" ]; then
-  echo "[info] Boot delay (except first time) will be ${BOOTDELAY} seconds"
+  echo "[info] Boot delay will be ${BOOTDELAY} seconds"
+  sleep ${BOOTDELAY}
 fi
+
+#Check if boot device is up
+search_boot_device
 
 #Check if target device already up
 search_target_device
@@ -51,7 +56,7 @@ led_show_start_signal
 
 [ -d /mnt ] || mkdir /mnt
 mkdir ${BOOT}
-mount -t vfat ${BOOTPART} ${BOOT}
+mount -t vfat ${BOOTPARTDEV} ${BOOT}
 
 clear_target_device
 create_volumio_partitions
@@ -62,13 +67,12 @@ echo "[info] Copying current image partition files"
 cp $BOOT/data/image/* $BOOT/temp/image
  
 echo "[info] Copying volumio boot partition files (image, dtb, boot files etc.)"
-#TODO tar xfJ $BOOT/data/boot/kernel_current.tar.xz -C $BOOT/temp/boot
 tar xf $BOOT/data/image/kernel_current.tar -C $BOOT/temp/boot
 
 if [ ! -z ${FACTORYCOPY} ]; then
    echo "[info] Continue with creating factory copies"
    cp $BOOT/data/image/kernel_current.tar $BOOT/data/image/kernel_factory.tar
-   cp $BOOT/data/image/volumio_current.sqsh $BOOT/data/image/volumio_factory.tar
+   cp $BOOT/data/image/volumio_current.sqsh $BOOT/data/image/volumio_factory.sqsh
 fi
 
 sync
